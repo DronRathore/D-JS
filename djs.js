@@ -1,27 +1,25 @@
-/*
+﻿/*
     D-JS Version 1.0.1
 */
-
-function Debug(codelines,callbacks){
+function Debug(codelines,callbacks,name){
     if(this==window)
-        return new Debug(codelines,callbacks);
+        return new Debug(codelines,callbacks,name);
     else
-        this.codelines=codelines;
-        this.callbacks=callbacks;
-        return this;
+		this.codelines=typeof(codelines)=="function"?codelines:false;
+		this.callbacks=typeof(callbacks)=="function"?callbacks:false;
+		this.name=name;
+        this.sandbox();
+		return this;
 }
-Debug.prototype.checkCallBacks=function(){
-    /*
-        Validates the callbacks, if they are anonymous functions then leave it
-        else for named functions check that the callback is reachable or not.
-    */
-    for(traverser=0;traverser<this.callbacks.length;traverser++){
-        if(!typeof(this.callbacks[traverser])=="function")){
-            try{
-                var d=this.callbacks[traverser];
-                }catch(Exception){
-					this.callbacks=D_Helper.removeCallbacks(callbacks,traverser);
-				}
-        }
-    }
+Debug.prototype.sandbox=function(){try{this.codelines();}catch(e){this.log(e);}};
+Debug.prototype.log=function(textToLog){if(window.console)window.console.log(textToLog);}
+function captcher(){
+h=function(){werwer();};
+h();
 }
+function a(){
+alert("hey");
+}
+a();
+
+Debug(function(){a=function(){captcher();};a();});
