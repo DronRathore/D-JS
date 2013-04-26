@@ -13,13 +13,3 @@ function Debug(codelines,callbacks,name){
 }
 Debug.prototype.sandbox=function(){try{this.codelines();}catch(e){this.log(e);}};
 Debug.prototype.log=function(textToLog){if(window.console)window.console.log(textToLog);}
-function captcher(){
-h=function(){werwer();};
-h();
-}
-function a(){
-alert("hey");
-}
-a();
-
-Debug(function(){a=function(){captcher();};a();});
